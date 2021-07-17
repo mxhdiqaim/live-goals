@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   View,
   Text,
@@ -7,19 +8,28 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import { withNavigation } from 'react-navigation';
 import Country from '../screens/Country';
 
-const Countries = ({ countries, loading }) => {
+const Countries = ({ countries, navigation, loading }) => {
   return (
-    <View>
-      <Text>Countries</Text>
+    <View style={{ paddingTop: 5 }}>
+      <Text style={{ alignSelf: 'center', textTransform: 'uppercase' }}>
+        Countries
+      </Text>
       <FlatList
         data={countries}
         horizontal
         keyExtractor={country => country.country_id}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('CountryItems', {
+                  id: item.country_id,
+                  loading: loading,
+                })
+              }>
               <Country country={item} loading={loading} />
             </TouchableOpacity>
           );
@@ -31,4 +41,4 @@ const Countries = ({ countries, loading }) => {
 
 const styles = StyleSheet.create({});
 
-export default Countries;
+export default withNavigation(Countries);

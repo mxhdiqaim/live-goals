@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import loadingGif from '../../assets/loading.gif';
 
 const Loading = () => {
@@ -15,12 +15,6 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-  // view: {
-  //   alignSelf: 'center',
-  //   position: 'absolute',
-  //   top: 300,
-  //   backgroundColor: '#333',
-  // },
 });
 
 export default Loading;
