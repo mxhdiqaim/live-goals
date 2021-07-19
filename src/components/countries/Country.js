@@ -1,28 +1,29 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import Loading from './Loading';
+
+import Loading from '../layout/Loading';
 
 const Country = ({ country, loading }) => {
   if (loading) {
     return <Loading />;
+  } else {
+    return (
+      <View style={styles.view}>
+        <Image style={styles.image} source={{ uri: country.country_logo }} />
+        <Text>{country.country_name}</Text>
+      </View>
+    );
   }
-
-  return (
-    <View style={styles.view}>
-      <Image style={styles.image} source={{ uri: country.country_logo }} />
-      <Text>{country.country_name}</Text>
-    </View>
-  );
 };
 
 const styles = StyleSheet.create({
   image: {
-    width: 50,
-    height: 30,
+    width: 60,
+    height: 40,
     margin: 4,
   },
   view: {
-    paddingBottom: 5,
+    paddingBottom: 10,
     paddingRight: 5,
     justifyContent: 'center',
     alignItems: 'center',

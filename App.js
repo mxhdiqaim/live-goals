@@ -2,10 +2,12 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import HomeScreen from './src/screens/HomeScreen';
-import CountryItems from './src/screens/CountryItems';
-import Country from './src/screens/Country';
+
+import CountryItems from './src/components/countries/CountryItems';
+import Country from './src/components/countries/Country';
 import LeagueTeams from './src/screens/LeagueTeams';
 import Matches from './src/screens/Matches';
+import MatchDetail from './src/components/matches/MatchDetail';
 
 const navigator = createStackNavigator(
   {
@@ -14,6 +16,7 @@ const navigator = createStackNavigator(
     CountryItems: CountryItems,
     LeagueTeams: LeagueTeams,
     Matches: Matches,
+    MatchDetail: MatchDetail,
   },
   {
     initialRouteName: 'Home',

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import axios from 'axios';
 
-import Fixtures from './Fixtures';
-import Table from './Table';
+import Fixtures from '../components/livescores/Fixtures';
+import Table from '../components/livescores/Table';
 
 const Teams = ({ navigation }) => {
   const id = navigation.getParam('id');
 
   const [standings, setStandings] = useState([]);
+  const [features, setFeatures] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const API_KEY = `9ee54314fc63b8e67f2b3f40b61650047f4b5d7b2956b5a6334143fd9ca73cd1`;
@@ -24,8 +25,21 @@ const Teams = ({ navigation }) => {
       );
 
       setStandings(response.data);
-      console.log(response.data);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
+  // getFeatures Function
+  const getFeatues = async id => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `https://apiv2.apifootball.com/?action=get_events&from=2019-04-01&to=2019-04-03&league_id=${id}&APIkey=${API_KEY}`,
+      );
+
+      setFeatures(response.data);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -34,6 +48,7 @@ const Teams = ({ navigation }) => {
 
   useEffect(() => {
     getStandings(id);
+    getFeatues(id);
   }, []);
 
   const Tab = createBottomTabNavigator();
@@ -41,8 +56,26 @@ const Teams = ({ navigation }) => {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name='Table' component={Table} />
-        <Tab.Screen name='Fixtures' component={Fixtures} />
+        <Tab.Screen
+          name='Fixtures'
+          children={() => (
+            <Fixtures
+              features={features}
+              loading={loading}
+              navigation={navigation}
+            />
+          )}
+        />
+        <Tab.Screen
+          name='Table'
+          children={() => (
+            <Table
+              standings={standings}
+              loading={loading}
+              navigation={navigation}
+            />
+          )}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );

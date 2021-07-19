@@ -2,8 +2,9 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-import Countries from '../components/Countries';
-import Matches from './Matches';
+import Countries from '../components/countries/Countries';
+import Loading from '../components/layout/Loading';
+import SearchMatches from '../components/matches/SearchMatches';
 
 const HomeScreen = () => {
   const API_KEY = `9ee54314fc63b8e67f2b3f40b61650047f4b5d7b2956b5a6334143fd9ca73cd1`;
@@ -35,11 +36,17 @@ const HomeScreen = () => {
     getCountries();
   }, []);
 
+  if (countries == null) {
+    return <Loading />;
+  }
+
   return (
-    <View style={styles.view}>
-      <Countries countries={countries} loading={loading} />
-      <Matches />
-    </View>
+    <>
+      <View style={styles.view}>
+        <Countries countries={countries} loading={loading} />
+        <SearchMatches />
+      </View>
+    </>
   );
 };
 

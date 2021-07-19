@@ -8,8 +8,7 @@ import {
   FlatList,
   Image,
 } from 'react-native';
-
-import Loading from './Loading';
+import Loading from '../layout/Loading';
 
 const CountryItem = ({ navigation }) => {
   const id = navigation.getParam('id');
@@ -39,16 +38,16 @@ const CountryItem = ({ navigation }) => {
     getCountryItems(id);
   }, []);
 
-  return (
-    <>
-      <Text style={{ fontSize: 24, alignSelf: 'center' }}>Leagues</Text>
-      <FlatList
-        data={countryItems}
-        keyExtractor={countryItem => countryItem.league_id}
-        renderItem={({ item }) => {
-          if (loading) {
-            return <Loading />;
-          } else {
+  if (loading) {
+    return <Loading />;
+  } else {
+    return (
+      <>
+        <Text style={{ fontSize: 24, alignSelf: 'center' }}>Leagues</Text>
+        <FlatList
+          data={countryItems}
+          keyExtractor={countryItem => countryItem.league_id}
+          renderItem={({ item }) => {
             return (
               <TouchableOpacity
                 onPress={() =>
@@ -63,26 +62,11 @@ const CountryItem = ({ navigation }) => {
                 </View>
               </TouchableOpacity>
             );
-          }
-        }}
-      />
-      <Text>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum. The standard chunk of Lorem Ipsum used since the 1500s
-        is reproduced below for those interested. Sections 1.10.32 and 1.10.33
-        from de Finibus Bonorum et Malorum by Cicero are also reproduced in
-        their exact original form, accompanied by English versions from the 1914
-        translation by H. Rackham.
-      </Text>
-    </>
-  );
+          }}
+        />
+      </>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

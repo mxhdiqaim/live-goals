@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import { withNavigation } from 'react-navigation';
-import Country from '../screens/Country';
+import Country from './Country';
 
 const Countries = ({ countries, navigation, loading }) => {
   return (
