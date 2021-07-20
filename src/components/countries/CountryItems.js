@@ -15,6 +15,7 @@ const CountryItem = ({ navigation }) => {
 
   const [countryItems, setCountryItems] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const API_KEY = `9ee54314fc63b8e67f2b3f40b61650047f4b5d7b2956b5a6334143fd9ca73cd1`;
 
@@ -30,7 +31,7 @@ const CountryItem = ({ navigation }) => {
 
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      setError(err);
     }
   };
 
@@ -43,6 +44,7 @@ const CountryItem = ({ navigation }) => {
   } else {
     return (
       <>
+        <Text>{error}</Text>
         <Text style={{ fontSize: 24, alignSelf: 'center' }}>Leagues</Text>
         <FlatList
           data={countryItems}

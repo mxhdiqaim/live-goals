@@ -1,9 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 
-import Fixtures from './Fixtures';
-
-const Table = ({ standings }) => {
+const Table = ({ standings, error }) => {
   return (
     <View style={styles.view}>
       <View style={styles.teamsHeaderStyle}>
@@ -35,6 +33,7 @@ const Table = ({ standings }) => {
           );
         }}
       />
+      <Text>{error}</Text>
     </View>
   );
 };

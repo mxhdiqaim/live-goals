@@ -9,7 +9,11 @@ const Country = ({ country, loading }) => {
   } else {
     return (
       <View style={styles.view}>
-        <Image style={styles.image} source={{ uri: country.country_logo }} />
+        <Image
+          style={styles.image}
+          source={country.country_logo ? { uri: country.country_logo } : null}
+        />
+
         <Text>{country.country_name}</Text>
       </View>
     );

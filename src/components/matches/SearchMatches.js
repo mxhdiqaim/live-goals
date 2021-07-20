@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavigationEvents, withNavigation } from 'react-navigation';
+import { withNavigation } from 'react-navigation';
 import {
   StyleSheet,
   View,
@@ -13,17 +13,28 @@ import Loading from '../layout/Loading';
 import axios from 'axios';
 
 const SearchMatches = ({ navigation }) => {
-  console.log(navigation);
-
   const [matches, setMatches] = useState(null);
 
   const API_KEY = `9ee54314fc63b8e67f2b3f40b61650047f4b5d7b2956b5a6334143fd9ca73cd1`;
 
   // getStandings Function
   const getMatches = async () => {
+    // Date object();
+    let day = new Date().getDay();
+    let month = new Date().getMonth();
+    let year = new Date().getFullYear();
+
+    if (day < 9) {
+      day = `0${day}`;
+    }
+
+    if (month < 9) {
+      month = `0${month}`;
+    }
+
     try {
       const response = await axios.get(
-        `https://apiv2.apifootball.com/?action=get_events&from=2019-04-01&to=2019-04-03&league_id=148&APIkey=${API_KEY}`,
+        `https://apiv2.apifootball.com/?action=get_events&from=${year}-${month}-${day}&to=2021-07-03&APIkey=${API_KEY}`,
       );
 
       setMatches(response.data);
@@ -42,7 +53,7 @@ const SearchMatches = ({ navigation }) => {
   }
 
   return (
-    <View>
+    <>
       <Text style={{ alignSelf: 'center', fontSize: 18, padding: 10 }}>
         Live Matches
       </Text>
@@ -67,7 +78,7 @@ const SearchMatches = ({ navigation }) => {
           );
         }}
       />
-    </View>
+    </>
   );
 };
 
